@@ -92,4 +92,4 @@ for i in np.arange(len(datafinal2)):
     plt.plot([datafinal2.current[i], datafinal2.next[i]],[i, i], c=color[i])
 plt.xlabel('Millions of acre-feet')
 plt.yticks(Visible=False)
-plt.title('Water stored in the 12 major California reservoirs at the beginning and end of the water year')
+plt.title("Water stored in California's 12 major reservoirs at the beginning and end of the water year")
