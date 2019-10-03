@@ -9,7 +9,7 @@ import pandas as pd
 import datetime as dt
 import numpy as np
 import matplotlib.pyplot as plt     
-from matplotlib import style
+from matplotlib import style, rcParams
    
 
 #Working inside subdirectory
@@ -77,6 +77,17 @@ datafinal2 = datafinal2/1000000
 datafinal2 = datafinal2.reset_index()
 
 #Plotting
+#First we initialize parameters for all figures
+params = {
+   'axes.labelsize': 8,
+   'font.size': 8,
+   'legend.fontsize': 8,
+   'xtick.labelsize': 8,
+   'ytick.labelsize': 8,
+   'text.usetex': False,
+   'figure.figsize': [9.5, 6.5]
+   }
+rcParams.update(params)
 style.use('ggplot')
 NUM_COLORS = len(datafinal2)
 cm = plt.get_cmap('jet_r')
@@ -93,3 +104,4 @@ for i in np.arange(len(datafinal2)):
 plt.xlabel('Millions of acre-feet')
 plt.yticks(Visible=False)
 plt.title("Water stored in California's 12 major reservoirs at the beginning and end of the water year")
+plt.text(4.5,-3.5, 'Source: California Data Exchange Center \nSource code available at https://github.com/alesbou/ReservoirVisuals/blob/master/ReservoirBegEndWatYear.py', style = 'italic', fontsize = 8)
