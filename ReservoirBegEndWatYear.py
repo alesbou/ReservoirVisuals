@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 """
-Created on Wed Oct 2 14:16:37 2019
+Created on Thu Nov 09 14:16:37 2017
 
 @author: alesbou
 """
@@ -33,7 +34,7 @@ def get_CDEC_data(station_id='mil', sensor_num='15', durformat ='H', start_date=
     a['day']=a['ACTUAL_DATE'].str[6:8].astype(int)
     a['HOUR']=a['ACTUAL_DATE'].str[10:11].astype(int)
     a['date'] = pd.to_datetime(a[['year','month','day','HOUR']])
-    a.VALUE = pd.to_numeric(a.VALUE, errors=coerce)
+    a.VALUE = pd.to_numeric(a.VALUE, errors='coerce')
     if listofstations == True:    
         a['output']=a.VALUE
         a = a[['date','output']]
@@ -54,14 +55,14 @@ reservoirs=['CLE','SHA', 'ORO', 'FOL', 'NML', 'DNP','EXC', 'MIL', 'PNF', 'ISB', 
 storageall = []
 releaseall = pd.DataFrame()
 for reservoir in reservoirs:
-    storageall.append(get_CDEC_data(station_id=reservoir,sensor_num='15', durformat = 'D',start_date='1985-10-01', end_date='2019-10-02'))
+    storageall.append(get_CDEC_data(station_id=reservoir,sensor_num='15', durformat = 'D',start_date='1985-10-01', end_date='2020-10-02'))
 
 storagelist = storageall[0]
 for i in np.arange(1,len(storageall)):
     storagelist = storagelist.append(storageall[i])
     
-storagelist = storagelist.loc[storagelist.day==1]
-storagelist = storagelist.loc[storagelist.month==10]
+storagelist = storagelist.loc[storagelist.day==30]
+storagelist = storagelist.loc[storagelist.month==9]
 pivot = storagelist.pivot(index='year', columns='STATION_ID' , values = 'VALUE')
 pivotinter = pivot.interpolate()
 pivotinter = pivot.dropna()
